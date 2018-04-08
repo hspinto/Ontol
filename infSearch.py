@@ -1,25 +1,12 @@
 
-#inicialização de uma matriz correta, com 0 a ser a posição vazia
-correctMatrix = [[],[],[]]
-
-for e in range(3):
-    for i in range(3):
-        correctMatrix[e] += [3 * e + i + 1]
-correctMatrix[2][2] = 0
-
-#matriz de teste
-incorrectMatrix = [[1, 2, 3], [4, 5, 6], [7, 200, 8]]
-
-
 
 #imprime uma matriz 3x3 (não está muito correcta mas não me lembro muito bem de python)
 def printMatrix(matrix):
     for e in range(3):
-        print(correctMatrix[e][0], correctMatrix[e][1], correctMatrix[e][2])
+        print(matrix[e][0], matrix[e][1], matrix[e][2])
     print('\n')
 
-#for debbuging purposes
-printMatrix(incorrectMatrix)
+
 
 
 #devolve o numero de semlehanças entre as matrizes, sendo 9 o máximo (quando as matrizes são iguais)
@@ -36,50 +23,66 @@ def compareMatrix(matrix1, matrix2):
 
 #move o espaço vazio para a direita, se possível
 def moveRight(matrix):
+    res = [[0,0,0],[0,0,0],[0,0,0]]
     for e in range(3):
         for i in range(3):
-            if matrix[e][i] == 0:
+            res[e][i] = matrix[e][i]
+    for e in range(3):
+        for i in range(3):
+            if res[e][i] == 0:
                 if i < 2:
-                    matrix[e][i] = matrix[e][i + 1]
-                    matrix[e][i + 1] = 0
-                return matrix
-    return matrix
+                    res[e][i] = res[e][i + 1]
+                    res[e][i + 1] = 0
+                return res
+    return res
 
 
 #move o espaço vazio para a esquerda, se possível
 def moveLeft(matrix):
+    res = [[0,0,0],[0,0,0],[0,0,0]]
     for e in range(3):
         for i in range(3):
-            if matrix[e][i] == 0:
+            res[e][i] = matrix[e][i]
+    for e in range(3):
+        for i in range(3):
+            if res[e][i] == 0:
                 if i > 0:
-                    matrix[e][i] = matrix[e][i - 1]
-                    matrix[e][i - 1] = 0
-                return matrix
-    return matrix
+                    res[e][i] = res[e][i - 1]
+                    res[e][i - 1] = 0
+                return res
+    return res
 
 
 #move o espaço vazio para cima, se possível
 def moveUp(matrix):
+    res = [[0,0,0],[0,0,0],[0,0,0]]
     for e in range(3):
         for i in range(3):
-            if matrix[e][i] == 0:
+            res[e][i] = matrix[e][i]
+    for e in range(3):
+        for i in range(3):
+            if res[e][i] == 0:
                 if e > 0:
-                    matrix[e][i] = matrix[e - 1][i]
-                    matrix[e - 1][i] = 0
-                return matrix
-    return matrix
+                    res[e][i] = res[e - 1][i]
+                    res[e - 1][i] = 0
+                return res
+    return res
 
 
 #move o espaço vazio para baixo, se possível
 def moveDown(matrix):
+    res = [[0,0,0],[0,0,0],[0,0,0]]
     for e in range(3):
         for i in range(3):
-            if matrix[e][i] == 0:
+            res[e][i] = matrix[e][i]
+    for e in range(3):
+        for i in range(3):
+            if res[e][i] == 0:
                 if e < 2:
-                    matrix[e][i] = matrix[e + 1][i]
-                    matrix[e + 1][i] = 0
-                return matrix
-    return matrix
+                    res[e][i] = res[e + 1][i]
+                    res[e + 1][i] = 0
+                return res
+    return res
 
 
 
@@ -106,6 +109,8 @@ def informedSearch(matrix):
     matrix2 = moveDown(matrix)
     matrix3 = moveRight(matrix)
     matrix4 = moveLeft(matrix)
+
+
 
     #a semelhança com a matriz final é calculada (mas só é tida em conta se ocorreu um movimento)
     results = []
@@ -139,5 +144,29 @@ def informedSearch(matrix):
     else:
         return informedSearch(matrix4)
 
-#printMatrix(informedSearch(incorrectMatrix))
+
+
+
+
+
+
+
+#inicialização de uma matriz correta, com 0 a ser a posição vazia
+correctMatrix = [[],[],[]]
+
+for e in range(3):
+    for i in range(3):
+        correctMatrix[e] += [3 * e + i + 1]
+correctMatrix[2][2] = 0
+
+
+
+#matriz de teste
+incorrectMatrix = [[1, 2, 3], [0, 4, 6], [7, 5, 8]]
+
+
+
+
+
 printMatrix(incorrectMatrix)
+printMatrix(informedSearch(incorrectMatrix))
